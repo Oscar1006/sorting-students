@@ -37,11 +37,15 @@ public class Main {
         ArrayList<Integer> exchanges = new ArrayList<Integer>(); 
         int count = 0;
         double average = 0;
+        int zeros = 0;
         //Sort Matrix
         for (int i = 0; i < n; i++) {
-            for(int j = 0; j < m-1; j++){
-			
-                for(int y = 0; y < m-j-1; y++){
+            for(int z = 0; z < m; z++){
+                if(matrix[i][z] == 0)
+                    zeros++;
+            }
+            for(int j = 0; j < m-1-zeros; j++){
+                for(int y = 0; y < m-j-1-zeros; y++){
                     if (matrix[i][y] > matrix[i][y+1]){
                         t = matrix[i][y];
                         matrix[i][y] = matrix[i][y+1];
@@ -52,19 +56,23 @@ public class Main {
                 exchanges.add(count);
                 count = 0;
             }
+            
             for (int x = 0; x < exchanges.size(); x++) {
                 average += exchanges.get(x);
+                
             }
-            average /= exchanges.size();
+            average /= (exchanges.size());
             averages[i] = average;
             exchanges.clear();
             average = 0;
+            zeros = 0;
         }
 
         for (int i = 0; i < n; i++) {
             System.out.print(averages[i] + "-");
             for (int j = 0; j < m; j++) {
-                System.out.print(matrix[i][j] + " ");
+                if(matrix[i][j] != 0)
+                    System.out.print(matrix[i][j] + " ");
             }
             System.out.println(" ");
         }
