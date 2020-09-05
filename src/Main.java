@@ -15,8 +15,8 @@ public class Main {
         String[] agesRows = ages.split("-");
         //Get the measure of the longer row
         for(int i = 0; i < n; i++){
-            if (m < agesRows[i].length()){
-                String[] separated = agesRows[i].split("// s");
+            String[] separated = agesRows[i].split(" ");
+            if (m < separated.length){
                 m = separated.length; 
             }
         }
@@ -24,12 +24,29 @@ public class Main {
         double[][] matrix = new double[n][m];
         //Fill the matrix
         for(int i = 0; i < n; i++){
-            String[] numbers = agesRows[i].split("// s");
+            String[] numbers = agesRows[i].split(" ");
             for(int j = 0; j < numbers.length; j++){
                 matrix[i][j] = Double.parseDouble(numbers[j]);
             }
         }
+        //Temporal Variable
+        double t = 0;
+        
+        //Sort Matrix
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < m-1; j++){
+			
+                for(int y = 0; y < m-j-1; y++){
+                    if (matrix[i][y] > matrix[i][y+1]){
+                        t = matrix[i][y];
+                        matrix[i][y] = matrix[i][y+1];
+                        matrix[i][y+1] = t; 
+                    }
+                }
+            }    
+        }
         
 
+        s.close();
     }
 }
