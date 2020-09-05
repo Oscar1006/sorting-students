@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -31,7 +32,11 @@ public class Main {
         }
         //Temporal Variable
         double t = 0;
-        
+
+        double[] averages = new double[n];
+        ArrayList<Integer> exchanges = new ArrayList<Integer>(); 
+        int count = 0;
+        double average = 0;
         //Sort Matrix
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < m-1; j++){
@@ -40,12 +45,29 @@ public class Main {
                     if (matrix[i][y] > matrix[i][y+1]){
                         t = matrix[i][y];
                         matrix[i][y] = matrix[i][y+1];
-                        matrix[i][y+1] = t; 
+                        matrix[i][y+1] = t;
+                        count++; 
                     }
                 }
-            }    
+                exchanges.add(count);
+                count = 0;
+            }
+            for (int x = 0; x < exchanges.size(); x++) {
+                average += exchanges.get(x);
+            }
+            average /= exchanges.size();
+            averages[i] = average;
+            exchanges.clear();
+            average = 0;
         }
-        
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(averages[i] + "-");
+            for (int j = 0; j < m; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
 
         s.close();
     }
